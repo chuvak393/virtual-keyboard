@@ -347,7 +347,9 @@ function WriteText(elem) {
       TextArea.selectionEnd = TextArea.selectionStart;
     } else if (elem === 'AltLeft' || elem === 'AltRight' || elem === 'ControlLeft' || elem === 'ControlRight' || elem === 'ArrowUp' || elem === 'ArrowRight' || elem === 'ArrowDown' || elem === 'ArrowLeft' || elem === 'MetaLeft') {
       TextArea.value += '';
-    } else TextArea.value += document.querySelector(`#${elem}`).innerText;
+    } else {
+      TextArea.value += document.querySelector(`#${elem}`).innerText;
+    }
   }
 }
 
