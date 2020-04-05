@@ -6,6 +6,10 @@ html {
     justify-content: center;
     flex-wrap: wrap;
 }
+.Description {
+    min-width: 862px;
+    order: 2;
+}
 .Textarea {
     margin-top: 10vh;
     width: 862px;

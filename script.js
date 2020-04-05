@@ -415,8 +415,15 @@ function DocumentWrite() {
   const TextArea = document.createElement('textarea');
   TextArea.className = 'Textarea';
   Wrapper.prepend(TextArea);
+  const Description = document.createElement('div');
+  Description.className = 'Description';
+  Wrapper.append(Description);
+  const DescriptionText = document.createElement('p');
+  DescriptionText.innerHTML = 'OS: Windows <br> To change the language: alt+shift';
+  Description.append(DescriptionText);
 }
-// npx eslint script.js
+
+
 DocumentWrite();
 KeyBoardWrite();
 window.addEventListener('keydown', KeyDown);
