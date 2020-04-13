@@ -202,17 +202,17 @@ const langEn = [
 
 function backspace() {
   const text = document.querySelector('.textarea');
-  const Caret1 = text.selectionStart;
-  const Caret2 = text.selectionEnd;
-  const Value = text.value;
-  if (Caret1 === Caret2) {
-    text.value = Value.substring(0, Caret1 - 1) + Value.substring(Caret2, Value.length);
-    text.selectionStart = Caret1 - 1;
-    text.selectionEnd = Caret1 - 1;
+  const caret1 = text.selectionStart;
+  const caret2 = text.selectionEnd;
+  const value = text.value;
+  if (caret1 === caret2) {
+    text.value = value.substring(0, caret1 - 1) + value.substring(caret2, value.length);
+    text.selectionStart = caret1 - 1;
+    text.selectionEnd = caret1 - 1;
   } else {
-    text.value = Value.substring(0, Caret1) + Value.substring(Caret2, Value.length);
-    text.selectionStart = Caret1;
-    text.selectionEnd = Caret1;
+    text.value = value.substring(0, caret1) + value.substring(caret2, value.length);
+    text.selectionStart = caret1;
+    text.selectionEnd = caret1;
   }
 }
 
@@ -226,7 +226,7 @@ function del() {
     text.selectionStart = caret1;
     text.selectionEnd = caret1;
   } else {
-    text.value = Value.substring(0, Caret1) + Value.substring(caret2, value.length);
+    text.value = value.substring(0, caret1) + value.substring(caret2, value.length);
     text.selectionStart = caret1;
     text.selectionEnd = caret1;
   }
@@ -324,16 +324,7 @@ function writeText(elem) {
   textarea.focus();
   if (keyCodes.includes(elem)) {
     if (elem === 'Tab') textarea.value += '    ';
-    else if (elem === 'CapsLock') {
-      changeCase();
-      document.querySelector('#capsLock').classList.add('key_pressed');
-    } else if (elem === 'ShiftLeft') {
-      changeCase();
-      document.querySelector('#ShiftLeft').classList.add('key_pressed');
-    } else if (elem === 'ShiftRight') {
-      changeCase();
-      document.querySelector('#ShiftRight').classList.add('key_pressed');
-    } else if (elem === 'Space') textarea.value += ' ';
+    else if (elem === 'Space') textarea.value += ' ';
     else if (elem === 'Enter') textarea.value += '\n';
     else if (elem === 'Backspace') {
       backspace();
@@ -345,7 +336,7 @@ function writeText(elem) {
     } else if (elem === 'ArrowRight') {
       textarea.selectionStart += 1;
       textarea.selectionEnd = textarea.selectionStart;
-    } else if (elem === 'AltLeft' || elem === 'AltRight' || elem === 'ControlLeft' || elem === 'ControlRight' || elem === 'ArrowUp' || elem === 'ArrowRight' || elem === 'ArrowDown' || elem === 'ArrowLeft' || elem === 'MetaLeft') {
+    } else if (elem === 'CapsLock' || elem === 'ShiftLeft' || elem === 'ShiftRight' || elem === 'AltLeft' || elem === 'AltRight' || elem === 'ControlLeft' || elem === 'ControlRight' || elem === 'ArrowUp' || elem === 'ArrowRight' || elem === 'ArrowDown' || elem === 'ArrowLeft' || elem === 'MetaLeft') {
       textarea.value += '';
     } else {
       textarea.value += document.querySelector(`#${elem}`).innerText;
@@ -353,7 +344,7 @@ function writeText(elem) {
   }
 }
 
-
+let caps = false;
 const keyPressed = new Set();
 function keyDown(elem) {
   if (keyCodes.includes(elem.code)) {
@@ -366,10 +357,26 @@ function keyDown(elem) {
       changeLang();
     }
   }
+  if (elem.code === 'CapsLock' && !caps) {
+    caps = true;
+    changeCase();
+    document.querySelector(`#${elem.code}`).classList.add('key_pressed');
+  }
+  if (elem.code === 'ShiftLeft' && !caps) {
+    caps = true;
+    changeCase()
+    document.querySelector(`#${elem.code}`).classList.add('key_pressed');
+  }
+  if (elem.code === 'ShiftRight' && !caps) {
+    caps = true;
+    changeCase()
+    document.querySelector(`#${elem.code}`).classList.add('key_pressed');
+  }
 }
 
 
 function keyUp(elem) {
+  caps = false;
   if (keyCodes.includes(elem.code)) {
     const up = elem.code;
     const key = document.querySelector(`#${up}`);
