@@ -1,4 +1,4 @@
-const KeyCodes = [
+const keyCodes = [
   'Backquote',
   'Digit1',
   'Digit2',
@@ -65,7 +65,7 @@ const KeyCodes = [
   'ArrowRight',
 ];
 
-const LangRu = [
+const langRu = [
   ['ё', 'Ё'],
   ['1', '!'],
   ['2', '"'],
@@ -133,7 +133,7 @@ const LangRu = [
 ];
 
 
-const LangEn = [
+const langEn = [
   ['`', '~'],
   ['1', '!'],
   ['2', '@'],
@@ -200,235 +200,235 @@ const LangEn = [
   'ᐅ',
 ];
 
-function Backspace() {
-  const Text = document.querySelector('.Textarea');
-  const Caret1 = Text.selectionStart;
-  const Caret2 = Text.selectionEnd;
-  const Value = Text.value;
+function backspace() {
+  const text = document.querySelector('.textarea');
+  const Caret1 = text.selectionStart;
+  const Caret2 = text.selectionEnd;
+  const Value = text.value;
   if (Caret1 === Caret2) {
-    Text.value = Value.substring(0, Caret1 - 1) + Value.substring(Caret2, Value.length);
-    Text.selectionStart = Caret1 - 1;
-    Text.selectionEnd = Caret1 - 1;
+    text.value = Value.substring(0, Caret1 - 1) + Value.substring(Caret2, Value.length);
+    text.selectionStart = Caret1 - 1;
+    text.selectionEnd = Caret1 - 1;
   } else {
-    Text.value = Value.substring(0, Caret1) + Value.substring(Caret2, Value.length);
-    Text.selectionStart = Caret1;
-    Text.selectionEnd = Caret1;
+    text.value = Value.substring(0, Caret1) + Value.substring(Caret2, Value.length);
+    text.selectionStart = Caret1;
+    text.selectionEnd = Caret1;
   }
 }
 
-function Del() {
-  const Text = document.querySelector('.Textarea');
-  const Caret1 = Text.selectionStart;
-  const Caret2 = Text.selectionEnd;
-  const Value = Text.value;
-  if (Caret1 === Caret2) {
-    Text.value = Value.substring(0, Caret1) + Value.substring(Caret2 + 1, Value.length);
-    Text.selectionStart = Caret1;
-    Text.selectionEnd = Caret1;
+function del() {
+  const text = document.querySelector('.textarea');
+  const caret1 = text.selectionStart;
+  const caret2 = text.selectionEnd;
+  const value = text.value;
+  if (caret1 === caret2) {
+    text.value = value.substring(0, caret1) + value.substring(caret2 + 1, value.length);
+    text.selectionStart = caret1;
+    text.selectionEnd = caret1;
   } else {
-    Text.value = Value.substring(0, Caret1) + Value.substring(Caret2, Value.length);
-    Text.selectionStart = Caret1;
-    Text.selectionEnd = Caret1;
+    text.value = Value.substring(0, Caret1) + Value.substring(caret2, value.length);
+    text.selectionStart = caret1;
+    text.selectionEnd = caret1;
   }
 }
 
-let Language;
-let CapsLock = true;
-function Keys(lang, shift) {
-  if (shift === !CapsLock) {
+let language;
+let capsLock = true;
+function keys(lang, shift) {
+  if (shift === !capsLock) {
     for (let i = 0; i < lang.length; i += 1) {
       if (Array.isArray(lang[i])) {
-        const Key = document.createElement('button');
-        Key.className = 'keys';
-        Key.id = KeyCodes[i];
-        const KeyText = lang[i][0];
-        Key.innerText = KeyText;
-        document.querySelector('.KeyBoard').append(Key);
+        const key = document.createElement('button');
+        key.className = 'keys';
+        key.id = keyCodes[i];
+        const keyText = lang[i][0];
+        key.innerText = keyText;
+        document.querySelector('.keyBoard').append(key);
       } else {
-        const Key = document.createElement('button');
-        Key.className = 'keys';
-        Key.id = KeyCodes[i];
-        Key.innerText = lang[i];
-        document.querySelector('.KeyBoard').append(Key);
+        const key = document.createElement('button');
+        key.className = 'keys';
+        key.id = keyCodes[i];
+        key.innerText = lang[i];
+        document.querySelector('.keyBoard').append(key);
       }
     }
   } else {
     for (let i = 0; i < lang.length; i += 1) {
       if (Array.isArray(lang[i])) {
-        const Key = document.createElement('button');
-        Key.className = 'keys';
-        Key.id = KeyCodes[i];
-        const KeyText = lang[i][1];
-        Key.innerText = KeyText;
-        document.querySelector('.KeyBoard').append(Key);
+        const key = document.createElement('button');
+        key.className = 'keys';
+        key.id = keyCodes[i];
+        const keyText = lang[i][1];
+        key.innerText = keyText;
+        document.querySelector('.keyBoard').append(key);
       } else {
-        const Key = document.createElement('button');
-        Key.className = 'keys';
-        Key.id = KeyCodes[i];
-        Key.innerText = lang[i];
-        document.querySelector('.KeyBoard').append(Key);
+        const key = document.createElement('button');
+        key.className = 'keys';
+        key.id = keyCodes[i];
+        key.innerText = lang[i];
+        document.querySelector('.keyBoard').append(key);
       }
     }
   }
 }
 
-Language = Boolean(localStorage.getItem('Language'));
-CapsLock = Boolean(localStorage.getItem('CapsLock'));
+language = Boolean(localStorage.getItem('language'));
+capsLock = Boolean(localStorage.getItem('capsLock'));
 
-function KeyWrite() {
-  if (CapsLock === true) {
-    if (Language === true) {
-      Keys(LangEn, CapsLock);
+function keyWrite() {
+  if (capsLock === true) {
+    if (language === true) {
+      keys(langEn, capsLock);
     } else {
-      Keys(LangRu, CapsLock);
+      keys(langRu, capsLock);
     }
-  } else if (Language === true) {
-    Keys(LangEn, !CapsLock);
+  } else if (language === true) {
+    keys(langEn, !capsLock);
   } else {
-    Keys(LangRu, !CapsLock);
+    keys(langRu, !capsLock);
   }
 }
 
-function ChangeLang() {
+function changeLang() {
   document.querySelectorAll('.keys').forEach((elem) => {
     elem.remove();
   });
-  if (Language === true) {
-    Language = false;
-    localStorage.setItem('Language', '');
+  if (language === true) {
+    language = false;
+    localStorage.setItem('language', '');
   } else {
-    Language = true;
-    localStorage.setItem('Language', Language);
+    language = true;
+    localStorage.setItem('language', language);
   }
-  KeyWrite();
+  keyWrite();
 }
 
 
-function ChangeCase() {
+function changeCase() {
   document.querySelectorAll('.keys').forEach((elem) => {
     elem.remove();
   });
-  if (CapsLock === true) {
-    CapsLock = false;
-    localStorage.setItem('CapsLock', '');
+  if (capsLock === true) {
+    capsLock = false;
+    localStorage.setItem('capsLock', '');
   } else {
-    CapsLock = true;
-    localStorage.setItem('CapsLock', CapsLock);
+    capsLock = true;
+    localStorage.setItem('capsLock', capsLock);
   }
-  KeyWrite();
+  keyWrite();
 }
 
-function WriteText(elem) {
-  const TextArea = document.querySelector('.Textarea');
+function writeText(elem) {
+  const textarea = document.querySelector('.textarea');
   window.event.returnValue = false;
-  TextArea.focus();
-  if (KeyCodes.includes(elem)) {
-    if (elem === 'Tab') TextArea.value += '    ';
+  textarea.focus();
+  if (keyCodes.includes(elem)) {
+    if (elem === 'Tab') textarea.value += '    ';
     else if (elem === 'CapsLock') {
-      ChangeCase();
-      document.querySelector('#CapsLock').classList.add('key_pressed');
+      changeCase();
+      document.querySelector('#capsLock').classList.add('key_pressed');
     } else if (elem === 'ShiftLeft') {
-      ChangeCase();
+      changeCase();
       document.querySelector('#ShiftLeft').classList.add('key_pressed');
     } else if (elem === 'ShiftRight') {
-      ChangeCase();
+      changeCase();
       document.querySelector('#ShiftRight').classList.add('key_pressed');
-    } else if (elem === 'Space') TextArea.value += ' ';
-    else if (elem === 'Enter') TextArea.value += '\n';
+    } else if (elem === 'Space') textarea.value += ' ';
+    else if (elem === 'Enter') textarea.value += '\n';
     else if (elem === 'Backspace') {
-      Backspace();
+      backspace();
     } else if (elem === 'Delete') {
-      Del();
+      del();
     } else if (elem === 'ArrowLeft') {
-      TextArea.selectionStart -= 1;
-      TextArea.selectionEnd -= 1;
+      textarea.selectionStart -= 1;
+      textarea.selectionEnd -= 1;
     } else if (elem === 'ArrowRight') {
-      TextArea.selectionStart += 1;
-      TextArea.selectionEnd = TextArea.selectionStart;
+      textarea.selectionStart += 1;
+      textarea.selectionEnd = textarea.selectionStart;
     } else if (elem === 'AltLeft' || elem === 'AltRight' || elem === 'ControlLeft' || elem === 'ControlRight' || elem === 'ArrowUp' || elem === 'ArrowRight' || elem === 'ArrowDown' || elem === 'ArrowLeft' || elem === 'MetaLeft') {
-      TextArea.value += '';
+      textarea.value += '';
     } else {
-      TextArea.value += document.querySelector(`#${elem}`).innerText;
+      textarea.value += document.querySelector(`#${elem}`).innerText;
     }
   }
 }
 
 
-const KeyPressed = new Set();
-function KeyDown(elem) {
-  if (KeyCodes.includes(elem.code)) {
-    const Down = elem.code;
-    const Key = document.querySelector(`#${Down}`);
-    Key.classList.add('key_pressed');
-    WriteText(Down);
-    KeyPressed.add(Down);
-    if (KeyPressed.has('AltLeft') && KeyPressed.has('ShiftLeft')) {
-      ChangeLang();
+const keyPressed = new Set();
+function keyDown(elem) {
+  if (keyCodes.includes(elem.code)) {
+    const down = elem.code;
+    const key = document.querySelector(`#${down}`);
+    key.classList.add('key_pressed');
+    writeText(down);
+    keyPressed.add(down);
+    if (keyPressed.has('AltLeft') && keyPressed.has('ShiftLeft')) {
+      changeLang();
     }
   }
 }
 
 
-function KeyUp(elem) {
-  if (KeyCodes.includes(elem.code)) {
-    const Up = elem.code;
-    const Key = document.querySelector(`#${Up}`);
-    Key.classList.remove('key_pressed');
-    if (Up === 'ShiftLeft' || Up === 'ShiftRight') {
-      ChangeCase();
+function keyUp(elem) {
+  if (keyCodes.includes(elem.code)) {
+    const up = elem.code;
+    const key = document.querySelector(`#${up}`);
+    key.classList.remove('key_pressed');
+    if (up === 'ShiftLeft' || up === 'ShiftRight') {
+      changeCase();
     }
-    KeyPressed.delete(Up);
+    keyPressed.delete(up);
   }
 }
 
-function MouseDown(elem) {
+function mouseDown(elem) {
   if (elem.target.classList.contains('keys')) {
-    WriteText(elem.target.id);
+    writeText(elem.target.id);
     elem.target.classList.add('key_pressed');
     if (elem.target.id === 'ShiftLeft') {
       if (document.querySelector('#AltLeft').classList.contains('key_pressed')) {
-        ChangeLang();
+        changeLang();
       }
     } else if (elem.target.id === 'AltLeft' && document.querySelector('#ShiftLeft').classList.contains('key_pressed')) {
-      ChangeLang();
-      ChangeCase();
+      changeLang();
+      changeCase();
     }
   }
 }
-function MouseUp(elem) {
+function mouseUp(elem) {
   elem.target.classList.remove('key_pressed');
   if (elem.target.id === 'ShiftLeft' || elem.target.id === 'ShiftRight') {
-    ChangeCase();
+    changeCase();
   }
 }
 
 
-function KeyBoardWrite() {
-  const KeyBoard = document.createElement('div');
-  KeyBoard.className = 'KeyBoard';
-  document.querySelector('.wrapper').append(KeyBoard);
-  KeyWrite();
+function keyBoardWrite() {
+  const keyBoard = document.createElement('div');
+  keyBoard.className = 'keyBoard';
+  document.querySelector('.wrapper').append(keyBoard);
+  keyWrite();
 }
 
-function DocumentWrite() {
-  const Wrapper = document.createElement('div');
-  Wrapper.className = 'wrapper';
-  document.body.append(Wrapper);
-  const TextArea = document.createElement('textarea');
-  TextArea.className = 'Textarea';
-  Wrapper.prepend(TextArea);
-  const Description = document.createElement('div');
-  Description.className = 'Description';
-  Wrapper.append(Description);
-  const DescriptionText = document.createElement('p');
-  DescriptionText.innerHTML = 'OS: Windows <br> To change the language: alt+shift';
-  Description.append(DescriptionText);
+function documentWrite() {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'wrapper';
+  document.body.append(wrapper);
+  const textarea = document.createElement('textarea');
+  textarea.className = 'textarea';
+  wrapper.prepend(textarea);
+  const description = document.createElement('div');
+  description.className = 'description';
+  wrapper.append(description);
+  const descriptionText = document.createElement('p');
+  descriptionText.innerHTML = 'OS: Windows <br> To change the language: alt+shift';
+  description.append(descriptionText);
 }
 
 
-DocumentWrite();
-KeyBoardWrite();
-window.addEventListener('keydown', KeyDown);
-window.addEventListener('keyup', KeyUp);
-window.addEventListener('mousedown', MouseDown);
-window.addEventListener('mouseup', MouseUp);
+documentWrite();
+keyBoardWrite();
+window.addEventListener('keydown', keyDown);
+window.addEventListener('keyup', keyUp);
+window.addEventListener('mousedown', mouseDown);
+window.addEventListener('mouseup', mouseUp);

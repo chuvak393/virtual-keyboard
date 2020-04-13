@@ -6,11 +6,11 @@ html {
     justify-content: center;
     flex-wrap: wrap;
 }
-.Description {
+.description {
     min-width: 862px;
     order: 2;
 }
-.Textarea {
+.textarea {
     margin-top: 10vh;
     width: 862px;
     height: 200px;
@@ -18,7 +18,7 @@ html {
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.01);;
 }
-.KeyBoard {
+.keyBoard {
     display: flex;
     flex-wrap: wrap;
     max-width: 876px;
