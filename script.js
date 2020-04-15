@@ -204,7 +204,7 @@ function backspace() {
   const text = document.querySelector('.textarea');
   const caret1 = text.selectionStart;
   const caret2 = text.selectionEnd;
-  const value = text.value;
+  const { value } = text;
   if (caret1 === caret2) {
     text.value = value.substring(0, caret1 - 1) + value.substring(caret2, value.length);
     text.selectionStart = caret1 - 1;
@@ -220,7 +220,7 @@ function del() {
   const text = document.querySelector('.textarea');
   const caret1 = text.selectionStart;
   const caret2 = text.selectionEnd;
-  const value = text.value;
+  const { value } = text;
   if (caret1 === caret2) {
     text.value = value.substring(0, caret1) + value.substring(caret2 + 1, value.length);
     text.selectionStart = caret1;
@@ -369,12 +369,12 @@ function keyDown(elem) {
   }
   if (elem.code === 'ShiftLeft' && !caps) {
     caps = true;
-    changeCase()
+    changeCase();
     document.querySelector(`#${elem.code}`).classList.add('key_pressed');
   }
   if (elem.code === 'ShiftRight' && !caps) {
     caps = true;
-    changeCase()
+    changeCase();
     document.querySelector(`#${elem.code}`).classList.add('key_pressed');
   }
 }
@@ -387,7 +387,7 @@ function keyUp(elem) {
     key.classList.remove('key_pressed');
     if (up === 'ShiftLeft' || up === 'ShiftRight') {
       changeCase();
-    } 
+    }
     keyPressed.delete(up);
   }
 }
