@@ -333,6 +333,12 @@ function writeText(elem) {
     } else if (elem === 'ArrowLeft') {
       textarea.selectionStart -= 1;
       textarea.selectionEnd -= 1;
+    } else if (elem === 'ArrowUp') {
+      textarea.selectionStart -= 117;
+      textarea.selectionEnd -= 117;
+    } else if (elem === 'ArrowDown') {
+      textarea.selectionStart += 117;
+      textarea.selectionEnd += 117;
     } else if (elem === 'ArrowRight') {
       textarea.selectionStart += 1;
       textarea.selectionEnd = textarea.selectionStart;
@@ -351,7 +357,6 @@ function keyDown(elem) {
     const down = elem.code;
     const key = document.querySelector(`#${down}`);
     key.classList.add('key_pressed');
-    writeText(down);
     keyPressed.add(down);
     if (keyPressed.has('AltLeft') && keyPressed.has('ShiftLeft')) {
       changeLang();
@@ -374,7 +379,6 @@ function keyDown(elem) {
   }
 }
 
-
 function keyUp(elem) {
   caps = false;
   if (keyCodes.includes(elem.code)) {
@@ -383,7 +387,7 @@ function keyUp(elem) {
     key.classList.remove('key_pressed');
     if (up === 'ShiftLeft' || up === 'ShiftRight') {
       changeCase();
-    }
+    } 
     keyPressed.delete(up);
   }
 }
